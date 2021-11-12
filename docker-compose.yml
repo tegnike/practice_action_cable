@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data:cached
+  web:
+    build: .
+    environment:
+      HOME: /app
+      RAILS_ENV: development
+    volumes:
+      - .:/app:cached
+      - bundle:/usr/local/bundle:cached
+      - /app/tmp
+      - /app/log
+      - /app/.git
+    ports:
+      - "3000:3000"
+    tty: true
+    links:
+      - db
+
+volumes:
+  bundle:
+    driver: local
+  data:
+    driver: local
