@@ -10,6 +10,9 @@ services:
       - data:/var/lib/postgresql/data:cached
   web:
     build: .
+    command: bash -c "rm -f /app/tmp/pids/server.pid &&
+                      bundle install &&
+                      bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       HOME: /app
       RAILS_ENV: development
