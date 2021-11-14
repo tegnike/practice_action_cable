@@ -37,3 +37,4 @@ yarn-debug.log*
 .yarn-integrity
 /.gem
 /.irb_history
+public/uploads/
